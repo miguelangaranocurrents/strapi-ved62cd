@@ -20,7 +20,10 @@ const BooleanInput = forwardRef<HTMLInputElement, InputProps>(
       field.onChange(name, null);
     };
 
-    const showClearButton = !required && field.value !== null && !disabled;
+    // A new entry may have no value at all (undefined, since createDefaultForm omits attributes
+    // without a default), which is just as "empty" as null.
+    const hasValue = field.value !== null && field.value !== undefined;
+    const showClearButton = !required && hasValue && !disabled;
 
     return (
       <Field.Root error={field.error} name={name} hint={hint} required={required} maxWidth="320px">

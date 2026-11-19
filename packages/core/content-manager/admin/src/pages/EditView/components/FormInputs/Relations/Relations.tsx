@@ -625,6 +625,13 @@ const RelationsInput = ({
        *
        */
       onChange(relation);
+
+      /**
+       * The combobox clears the typed text once an option is selected, so the server search
+       * must be cleared too. Otherwise the next search still filters on the old text (which now
+       * matches only the relation just connected) and the remaining entries are not listed.
+       */
+      setSearchParams((s) => (s._q === '' && s.page === 1 ? s : { ...s, _q: '', page: 1 }));
     },
     [data, formatMessage, onChange, toggleNotification]
   );

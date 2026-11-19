@@ -102,7 +102,9 @@ const LabelAction = ({ title }: LabelActionProps) => {
   const { formatMessage } = useIntl();
 
   return (
-    <Span tag="span" title={title}>
+    // Don't pass the descriptor to `title`: it's an object and would render as "[object Object]".
+    // The visually hidden text and the tooltip already provide the accessible label.
+    <Span tag="span">
       <VisuallyHidden tag="span">{formatMessage(title)}</VisuallyHidden>
       <Tooltip label={formatMessage(title)}>
         <Earth aria-hidden focusable={false} />
